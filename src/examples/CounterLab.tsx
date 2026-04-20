@@ -1,6 +1,12 @@
 import { useState } from 'react'
+import type { ExampleComponent } from './exampleTypes'
 
-function CounterPanel({ label, value }) {
+type CounterPanelProps = {
+  label: string
+  value: number
+}
+
+function CounterPanel({ label, value }: CounterPanelProps) {
   return (
     <div className="mini-stat">
       <span>{label}</span>
@@ -9,9 +15,9 @@ function CounterPanel({ label, value }) {
   )
 }
 
-export function CounterLab() {
-  const [count, setCount] = useState(0)
-  const [step, setStep] = useState(1)
+const CounterLab: ExampleComponent = () => {
+  const [count, setCount] = useState<number>(0)
+  const [step, setStep] = useState<number>(1)
 
   return (
     <section className="demo-card">
@@ -51,3 +57,13 @@ export function CounterLab() {
     </section>
   )
 }
+
+CounterLab.exampleMeta = {
+  id: 'counter',
+  title: 'Sample 1: Counter Lab',
+  description: 'useState とイベント処理を最短で反復できるサンプル。',
+  tags: ['useState', 'onClick', 'props'],
+  order: 1,
+}
+
+export default CounterLab

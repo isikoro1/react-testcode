@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import type { ExampleComponent } from './exampleTypes'
 
-export function PaletteLab() {
-  const [name, setName] = useState('sunset')
-  const [hue, setHue] = useState(18)
-  const [saturation, setSaturation] = useState(88)
-  const [lightness, setLightness] = useState(56)
+const PaletteLab: ExampleComponent = () => {
+  const [name, setName] = useState<string>('sunset')
+  const [hue, setHue] = useState<number>(18)
+  const [saturation, setSaturation] = useState<number>(88)
+  const [lightness, setLightness] = useState<number>(56)
 
   const color = `hsl(${hue} ${saturation}% ${lightness}%)`
 
@@ -69,3 +70,13 @@ export function PaletteLab() {
     </section>
   )
 }
+
+PaletteLab.exampleMeta = {
+  id: 'palette',
+  title: 'Sample 2: Palette Lab',
+  description: 'フォーム入力と派生 UI を 1 画面で確認できるサンプル。',
+  tags: ['controlled input', 'range', 'derived state'],
+  order: 2,
+}
+
+export default PaletteLab

@@ -1,15 +1,22 @@
 import { useState } from 'react'
+import type { ExampleComponent } from './exampleTypes'
 
-const initialTasks = [
+type Task = {
+  id: number
+  title: string
+  done: boolean
+}
+
+const initialTasks: Task[] = [
   { id: 1, title: 'props を読む', done: false },
   { id: 2, title: 'useState を書く', done: true },
   { id: 3, title: 'map で描画する', done: false },
 ]
 
-export function TaskBoardLab() {
-  const [tasks, setTasks] = useState(initialTasks)
-  const [title, setTitle] = useState('')
-  const [filter, setFilter] = useState('all')
+const TaskBoardLab: ExampleComponent = () => {
+  const [tasks, setTasks] = useState<Task[]>(initialTasks)
+  const [title, setTitle] = useState<string>('')
+  const [filter, setFilter] = useState<'all' | 'open' | 'done'>('all')
 
   const visibleTasks = tasks.filter((task) => {
     if (filter === 'open') {
@@ -23,7 +30,7 @@ export function TaskBoardLab() {
     return true
   })
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const nextTitle = title.trim()
@@ -43,7 +50,7 @@ export function TaskBoardLab() {
     setTitle('')
   }
 
-  function handleToggle(taskId) {
+  function handleToggle(taskId: number) {
     setTasks((current) =>
       current.map((task) =>
         task.id === taskId ? { ...task, done: !task.done } : task,
@@ -72,7 +79,7 @@ export function TaskBoardLab() {
       </form>
 
       <div className="filter-row">
-        {['all', 'open', 'done'].map((name) => (
+        {(['all', 'open', 'done'] as const).map((name) => (
           <button
             key={name}
             type="button"
@@ -101,3 +108,13 @@ export function TaskBoardLab() {
     </section>
   )
 }
+
+TaskBoardLab.exampleMeta = {
+  id: 'tasks',
+  title: 'Sample 3: Task Board Lab',
+  description: '配列 state の追加・切り替え・絞り込みを練習するサンプル。',
+  tags: ['list rendering', 'filter', 'form submit'],
+  order: 3,
+}
+
+export default TaskBoardLab
